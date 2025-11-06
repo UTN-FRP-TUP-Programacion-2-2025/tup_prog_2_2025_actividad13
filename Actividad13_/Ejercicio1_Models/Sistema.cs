@@ -40,7 +40,7 @@ public class Sistema
         return c.CargaEnKg();
     }
 
-    public void Descargar(FileStream fs)
+    public void Descargar(Stream fs)
     {
         StreamReader sr=new StreamReader(fs);
 
@@ -62,12 +62,26 @@ public class Sistema
         sr.Close();
     }
 
-    public void RetirarPaquete(int posicion)
+    public void RetirarCamion(FileStream fs, int posicion)
+    {
+        StreamWriter sw = new StreamWriter(fs);
+
+        Camion c = listaCamiones[posicion];
+
+        foreach(string p in c.VerCarga())
+        {
+            sw.WriteLine(p);
+        }
+        sw.Close();
+    }
+
+    public double RetirarPaquete(int posicion)
     {
         Camion c = listaCamiones[posicion];
         Paquete p=c.QuitarPaquete();
         if (p != null)
             listaPaquetes.Add(p);
+        return c.CargaEnKg();
     }
 
     public string[] VerCargaCamion(int posicion)

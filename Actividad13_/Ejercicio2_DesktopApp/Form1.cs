@@ -110,9 +110,37 @@ public partial class Form1 : Form
     {
         if (camionElegido > -1)
         {
-            MiEmpresa.RetirarPaquete(camionElegido);
+            double peso = MiEmpresa.RetirarPaquete(camionElegido);
+
+            textBox1.Text = peso.ToString("0.00");
             MostrarListaZonas();
             VerCarga();
+        }
+    }
+
+    private void btnEnviar_Click(object sender, EventArgs e)
+    {
+        FileStream fs = null;
+        try
+        {
+            string nombre = $"{camionElegido.ToString("000")}carga.CSV";
+            fs = new FileStream(nombre, FileMode.OpenOrCreate, FileAccess.Write);
+
+            MiEmpresa.RetirarCamion(fs, camionElegido);
+
+            camionElegido = -1;
+            comboBox1.SelectedIndex = camionElegido;
+            MostrarListaZonas();
+            VerCarga();
+
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"{ex}");
+        }
+        finally
+        {
+            if (fs != null) fs.Close(); 
         }
     }
 }

@@ -64,8 +64,10 @@ public class Camion
         return pesoControl;
     }
 
-    internal Paquete QuitarPaquete()
+    public Paquete QuitarPaquete()
     {
-        throw new NotImplementedException();
+        if (manifiesto.Count > 0)
+            return manifiesto.Pop();
+        return null;
     }
 }
