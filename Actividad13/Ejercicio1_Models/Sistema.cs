@@ -1,50 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+
 
 namespace Ejercicio1_Models;
 
+[Serializable]
 public class Sistema
 {
-    List<Camion>listaCamiones =new List<Camion>();
     public List<Paquete> listaPaquetes = new List<Paquete>();
+    List<Camion> listaCamiones = new List<Camion>();
 
     public Sistema()
     { 
-        listaCamiones.Add(new Camion(1001, 2000));
-        listaCamiones.Add(new Camion(1002, 5000));
-    }
-
-    public void Descargar(Stream fs)
-    {
-        StreamReader sr=new StreamReader(fs);
-
-        while (!sr.EndOfStream)
-        {
-            string linea = sr.ReadLine();
-
-            string[] datos = linea.Split(';');
-
-            int id = Convert.ToInt32(datos[0]);
-            double peso = Convert.ToDouble(datos[1]);
-            string zona = datos[2];
-
-            Paquete paquete = new Paquete(id, peso, zona);
-            listaPaquetes.Add(paquete);
-        }
-
-        sr.Close();
+        listaCamiones.Add( new Camion(100, 2000) );
+        listaCamiones.Add(new Camion(101, 3000));
+        listaCamiones.Add(new Camion(102, 2000));
     }
 
     public string[] CamionesCargados()
     {
-        string[] cs=new string[listaCamiones.Count];
+        string[] cs= new string[listaCamiones.Count];
+
         int n = 0;
         foreach (Camion c in listaCamiones)
         {
-            cs[n++] = c.Patente.ToString();
+            cs[n++] = $"{c.Patente}({c.PesoMax})";
         }
         return cs;
     }
@@ -53,42 +33,60 @@ public class Sistema
     {
         Camion c= listaCamiones[camionElegido];
 
-        if (c.AgregarPaquete(seleccionado))
-        { 
+        if (c.AgregarPaquete(seleccionado) == true)
+        {
             listaPaquetes.Remove(seleccionado);
         }
-
         return c.CargaEnKg();
     }
 
-    public string[] VerCargaCamion(int camionElegido)
+    public void Descargar(Stream fs)
     {
-        Camion camion= listaCamiones[camionElegido];
-        return camion.VerCarga(); 
-    }
+        StreamReader sr=new StreamReader(fs);
 
-    public double RetirarPaquete(int camionElegido)
-    {
-        Camion c = listaCamiones[camionElegido];
-
-        Paquete p = c.QuitarPaquete();
-        if(p!=null)
+        while (sr.EndOfStream == false)
         {
+            string linea = sr.ReadLine();
+
+            string[] datos = linea.Split(';');
+
+            int id=Convert.ToInt32( datos[0] );
+            double peso=Convert.ToDouble( datos[1] );
+            string zona=datos[2];
+
+            Paquete p = new Paquete(id, peso, zona);
+
             listaPaquetes.Add(p);
         }
-        return c.CargaEnKg();
+
+        sr.Close();
     }
 
     public void RetirarCamion(Stream fs, int posicion)
     {
-        StreamWriter sr = new StreamWriter(fs);
+        StreamWriter sw = new StreamWriter(fs);
 
-        foreach (string p in VerCargaCamion(posicion))
+        Camion c = listaCamiones[posicion];
+
+        foreach(string p in c.VerCarga())
         {
-            sr.WriteLine(p.ToString());
+            sw.WriteLine(p);
         }
-      
+        sw.Close();
+    }
 
-        sr.Close();
+    public double RetirarPaquete(int posicion)
+    {
+        Camion c = listaCamiones[posicion];
+        Paquete p=c.QuitarPaquete();
+        if (p != null)
+            listaPaquetes.Add(p);
+        return c.CargaEnKg();
+    }
+
+    public string[] VerCargaCamion(int posicion)
+    {
+        Camion c= listaCamiones[posicion];
+        return c.VerCarga();    
     }
 }

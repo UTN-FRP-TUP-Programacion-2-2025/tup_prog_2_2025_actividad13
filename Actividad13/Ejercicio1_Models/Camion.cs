@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
 
 namespace Ejercicio1_Models;
 
+[Serializable]
 public class Camion
 {
-    double pesoControl = 0;
-    public int Patente { get; set; }
+    double pesoControl=0;
+    public int Patente { get; set; }    
     public double PesoMax { get; set; }
-
-    Stack<Paquete> manifesto = new Stack<Paquete>();
+    Stack<Paquete> manifiesto = new Stack<Paquete>();
 
     public Camion(int patente, double peso)
     {
@@ -20,16 +17,48 @@ public class Camion
         PesoMax = peso;
     }
 
+    public string[] VerCarga()
+    {
+        string[] carga=new string[manifiesto.Count];
+        int n = 0;
+        foreach (Paquete p in manifiesto)
+        {
+            carga[n++] = p.ToString();
+        }
+        return carga;
+    }
+
+   
     public bool AgregarPaquete(Paquete unPaquete)
     {
-        if (unPaquete == null) throw new Exception("paquete nulo");
+        if (unPaquete == null) throw new Exception("Paquete nulo");
 
         if (unPaquete.Peso + pesoControl > PesoMax) return false;
 
-        manifesto.Push(unPaquete);
-
+        manifiesto.Push(unPaquete);
         pesoControl += unPaquete.Peso;
+
         return true;
+      
+        /* alternativa
+        if (unPaquete != null)
+        {
+            if (unPaquete.Peso + pesoControl <= PesoMax)
+            {
+                manifiesto.Push(unPaquete);
+                pesoControl += unPaquete.Peso;
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+        else
+        {
+            throw new Exception("Paquete nulo");
+        }
+        */
     }
 
     public double CargaEnKg()
@@ -39,23 +68,8 @@ public class Camion
 
     public Paquete QuitarPaquete()
     {
-        if (manifesto.Count > 0)
-        {
-            Paquete paquete = manifesto.Pop();
-            pesoControl -= paquete.Peso;
-            return paquete;
-        }
+        if (manifiesto.Count > 0)
+            return manifiesto.Pop();
         return null;
-    }
-
-    public string[] VerCarga()
-    {
-        string[] carga = new string[manifesto.Count];
-        int n = 0;
-        foreach (Paquete paquete in manifesto)
-        {
-            carga[n++] = paquete.ToString();
-        }
-        return carga;
     }
 }
