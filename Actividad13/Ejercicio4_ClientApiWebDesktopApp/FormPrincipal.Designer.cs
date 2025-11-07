@@ -90,6 +90,7 @@
             btnRetirar.TabIndex = 5;
             btnRetirar.Text = "Retirar";
             btnRetirar.UseVisualStyleBackColor = true;
+            btnRetirar.Click += btnRetirar_Click;
             // 
             // listBcarga
             // 

@@ -69,7 +69,11 @@ public class Camion
     public Paquete QuitarPaquete()
     {
         if (manifiesto.Count > 0)
-            return manifiesto.Pop();
+        {
+            Paquete unPaquete = manifiesto.Pop();
+            pesoControl -= unPaquete.Peso;
+            return unPaquete;
+        }
         return null;
     }
 }
