@@ -1,5 +1,5 @@
 ﻿
-namespace Ejercicio4_ClientApiWebApp.DTOs;
+namespace Ejercicio4_ClientApiWebDesktopApp.DTOs;
 
 public class PaqueteDTO
 {

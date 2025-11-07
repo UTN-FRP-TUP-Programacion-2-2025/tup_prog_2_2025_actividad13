@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejercicio2_DesktopApp", "Ej
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejercicio3_WebApiApp", "Ejercicio3_WebApiApp\Ejercicio3_WebApiApp.csproj", "{0E6C73DC-B154-469E-A51C-DC752E0E9DE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejercicio4_ClientApiWebApp", "Ejercicio4_ClientApiWebApp\Ejercicio4_ClientApiWebApp.csproj", "{F2842225-C6FE-4934-BEB9-87CCAFE5B9B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejercicio4_ClientApiWebDesktopApp", "Ejercicio4_ClientApiWebDesktopApp\Ejercicio4_ClientApiWebDesktopApp.csproj", "{F2842225-C6FE-4934-BEB9-87CCAFE5B9B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

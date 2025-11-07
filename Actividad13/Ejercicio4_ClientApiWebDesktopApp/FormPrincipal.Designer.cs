@@ -1,4 +1,4 @@
-﻿namespace Ejercicio4_ClientApiWebApp
+﻿namespace Ejercicio4_ClientApiWebDesktopApp
 {
     partial class FormPrincipal
     {

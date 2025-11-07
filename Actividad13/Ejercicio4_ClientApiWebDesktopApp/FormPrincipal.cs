@@ -1,8 +1,8 @@
-using Ejercicio4_ClientApiWebApp.DTOs;
+using Ejercicio4_ClientApiWebDesktopApp.DTOs;
 using System.Net.Http.Json;
 using System.Windows.Forms;
 
-namespace Ejercicio4_ClientApiWebApp;
+namespace Ejercicio4_ClientApiWebDesktopApp;
 
 public partial class FormPrincipal : Form
 {
